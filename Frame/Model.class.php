@@ -13,7 +13,7 @@ class Model
     {
         $option = [
             'pass' => '!@#123qwe',
-            'dbname' => 'test'
+            'dbname' => 'start'
         ];
         $this->dao = MysqlHelper::getSingleton($option);
     }
