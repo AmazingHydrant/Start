@@ -1,0 +1,14 @@
+ CREATE TABLE custs(
+    id int auto_increment comment 'id',
+    custName varchar(255) not null comment 'custName',
+    custEmployeeDesc varchar(20) not null comment 'custEmployeeDesc',
+    custCapitalDesc varchar(20) not null comment 'custCapitalDesc',
+    profile varchar(1000) not null comment 'profile',
+    product varchar(10000) not null comment 'product',
+    areaDesc varchar(50) not null comment 'areaDesc',
+    custWebSite varchar(255) not null comment 'custWebSite',
+    indcatTreeDesc varchar(255) not null comment 'indcatTreeDesc',
+    create_at timestamp not null default CURRENT_TIMESTAMP comment 'creating time',
+    updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'update time',
+    PRIMARY KEY (id)
+);
