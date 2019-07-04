@@ -7,14 +7,16 @@ class CrawlerModel
     private $curl;
     public function __construct()
     {
-        //$this->initCurl();
+        $this->initCurl();
     }
     /**
      * init crul
      */
     private function initCurl()
     {
-        $this->curl = new Curl;
+        $timeout_sec = '3600';
+        ini_set("max_execution_time", $timeout_sec);
+        //$this->curl = new Curl;
     }
     /**
      * @param string $url
@@ -63,11 +65,11 @@ class CrawlerModel
      * @param int $page
      * @param int $area
      * @param int $indcat
-     * @return array 
+     * @return array
      */
     public function crawling104($keyword = null, $page = 1, $area = null, $indcat = null)
     {
-        $header[] = "Referer: https://www.104.com.tw/cust/list/index/?page=1&area={$area}&indcat={$indcat}&order=1&mode=s&jobsource=checkc&keyword={$keyword}";
+        $header[] = "Referer: https://www.104.com.tw/cust/list/index/?page={$page}&area={$area}&indcat={$indcat}&order=1&mode=s&jobsource=checkc&keyword={$keyword}";
         $header[] = "Accept: application/json, text/javascript, */*; q=0.01";
         $header[] = "Pragma: no-cache";
         $header[] = "X-Requested-With: XMLHttpRequest";

@@ -1,5 +1,5 @@
  CREATE TABLE users(
-    id int auto_increment comment 'id',
+    id int unsigned auto_increment comment 'id',
     user varchar(20) not null comment 'username',
     pass char(32) not null comment 'password',
     create_at timestamp not null default CURRENT_TIMESTAMP comment 'creating time',

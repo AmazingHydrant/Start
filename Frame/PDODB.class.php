@@ -38,7 +38,7 @@ class PDODB
     }
     /**
      * init Patams
-     * @param array $option
+     * @param array $option [pass, dbname]
      */
     private function initParam($option)
     {
@@ -89,7 +89,7 @@ class PDODB
         echo "sql error: {$e->getMessage()}";
     }
     /**
-     * sql query
+     * fetch col sql query
      * @param string $sql
      * @param array $val
      */
@@ -99,6 +99,41 @@ class PDODB
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($val);
             $res = $stmt->fetch(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            $this->sqlErr($e);
+            return false;
+        }
+        return $res;
+    }
+    /**
+     * sql query
+     * @param string $sql
+     * @param array $val
+     */
+    public function query($sql, $val)
+    {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $res = $stmt->execute($val);
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            $this->sqlErr($e);
+            return false;
+        }
+        return $res;
+    }
+    /**
+     * fetch all sql query
+     * @param string $sql
+     * @param array $val
+     */
+    public function fetchAll($sql, $val)
+    {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($val);
+            $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
             $stmt->closeCursor();
         } catch (PDOException $e) {
             $this->sqlErr($e);
