@@ -1,5 +1,5 @@
  CREATE TABLE custs(
-    id int unsigned auto_increment comment 'id',
+    id int unsigned not null auto_increment comment 'id',
     custName varchar(255) not null comment 'custName',
     custEmployeeDesc varchar(20) not null comment 'custEmployeeDesc',
     custCapitalDesc varchar(20) not null comment 'custCapitalDesc',
@@ -10,6 +10,6 @@
     indcatTreeDesc varchar(255) not null comment 'indcatTreeDesc',
     create_at timestamp not null default CURRENT_TIMESTAMP comment 'creating time',
     updated_at timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment 'update time',
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
     UNIQUE (custName)
 );

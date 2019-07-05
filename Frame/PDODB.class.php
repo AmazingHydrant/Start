@@ -93,29 +93,12 @@ class PDODB
      * @param string $sql
      * @param array $val
      */
-    public function myQuery($sql, $val)
+    public function fetchRow($sql, $val)
     {
         try {
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($val);
             $res = $stmt->fetch(PDO::FETCH_ASSOC);
-            $stmt->closeCursor();
-        } catch (PDOException $e) {
-            $this->sqlErr($e);
-            return false;
-        }
-        return $res;
-    }
-    /**
-     * sql query
-     * @param string $sql
-     * @param array $val
-     */
-    public function query($sql, $val)
-    {
-        try {
-            $stmt = $this->pdo->prepare($sql);
-            $res = $stmt->execute($val);
             $stmt->closeCursor();
         } catch (PDOException $e) {
             $this->sqlErr($e);
@@ -134,6 +117,23 @@ class PDODB
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute($val);
             $res = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            $this->sqlErr($e);
+            return false;
+        }
+        return $res;
+    }
+    /**
+     * sql query
+     * @param string $sql
+     * @param array $val
+     */
+    public function query($sql, $val)
+    {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $res = $stmt->execute($val);
             $stmt->closeCursor();
         } catch (PDOException $e) {
             $this->sqlErr($e);
