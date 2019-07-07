@@ -30,7 +30,7 @@ class AdminModel
      */
     public function check($user, $pass)
     {
-        $res = $this->pdodb->myQuery("select user from users where user = ? and pass = ?", [$user, md5($pass)]);
+        $res = $this->pdodb->fetchRow("select user from users where user = ? and pass = ?", [$user, md5($pass)]);
         return $res;
     }
 }

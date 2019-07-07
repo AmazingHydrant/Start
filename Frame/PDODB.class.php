@@ -93,6 +93,24 @@ class PDODB
      * @param string $sql
      * @param array $val
      */
+    public function fetchCol($sql, $val = null)
+    {
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($val);
+            $res = $stmt->fetchColumn();
+            $stmt->closeCursor();
+        } catch (PDOException $e) {
+            $this->sqlErr($e);
+            return false;
+        }
+        return $res;
+    }
+    /**
+     * fetch col sql query
+     * @param string $sql
+     * @param array $val
+     */
     public function fetchRow($sql, $val)
     {
         try {

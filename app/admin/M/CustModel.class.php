@@ -78,4 +78,20 @@ class CustModel
             }
         }
     }
+    /**
+     * total cust nunber
+     */
+    public function totalNun()
+    {
+        $totalNun = $this->pdo->fetchCol("select count(id) from custs");
+        return $totalNun;
+    }
+    /**
+     * fetch cust info
+     */
+    public function fetchInfo($id)
+    {
+        $info = $this->pdo->fetchRow("select * from custs where id = ?", "$id");
+        return $info;
+    }
 }

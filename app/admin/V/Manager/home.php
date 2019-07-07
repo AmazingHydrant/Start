@@ -19,12 +19,13 @@
         <button type="button" class="btn btn-light" onclick="logout()">登出</button>
       </div>
     </div>
-
+    <!-- Cust table -->
     <table class="table table-hover table-striped table-sm">
       <thead>
         <tr class="text-nowrap">
           <th scope="col">#</th>
           <th scope="col">公司名稱</th>
+          <th scope="col">產業類別</th>
           <th scope="col">員工人數</th>
           <th scope="col">資本額</th>
           <th scope="col">縣市</th>
@@ -34,26 +35,31 @@
       </thead>
       <tbody>
         <?php foreach ($var as $val) : ?>
-          <tr class="text-nowrap">
-            <th scope="row">
-              <?php echo $val['id']; ?>
+          <tr class="text-nowrap" id="<?php echo $val['id']; ?>">
+            <th scope="row edit">
+              <div class="edit id">
+                <?php echo $val['id']; ?>
+              </div>
             </th>
-            <td>
-              <div class="text-truncate" style="width:15rem">
-                <?php echo  $val['custName']; ?>
+            <td class="edit custName">
+              <div class="text-truncate wrap" style="width:15rem">
+                <?php echo $val['custName']; ?>
               </div>
             </td>
-            <td>
-              <?php echo  $val['custEmployeeDesc']; ?>
+            <td class="edit indcatTreeDesc">
+              <?php echo explode(' > ', $val['indcatTreeDesc'])[1]; ?>
             </td>
-            <td>
-              <?php echo  $val['custCapitalDesc']; ?>
+            <td class="edit custEmployeeDesc">
+              <?php echo $val['custEmployeeDesc']; ?>
             </td>
-            <td>
-              <?php echo  $val['areaDesc']; ?>
+            <td class="edit custCapitalDesc">
+              <?php echo $val['custCapitalDesc']; ?>
             </td>
-            <td>
-              <div class="text-truncate" style="width:15rem">
+            <td class="edit areaDesc">
+              <?php echo $val['areaDesc']; ?>
+            </td>
+            <td class="edit custWebSite">
+              <div class="text-truncate wrap" style="width:15rem">
                 <a href="<?php echo  $val['custWebSite']; ?>" target="_blank"><?php echo $val['custWebSite']; ?></a>
               </div>
             </td>
@@ -64,10 +70,20 @@
                 <button type="button" class="btn btn-secondary">送出</button>
               </div>
             </td>
+            <td class="d-none profile">
+              <?php echo  $val['profile']; ?>
+            </td>
+            <td class="d-none product">
+              <?php echo  $val['product']; ?>
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>
     </table>
+    <!-- Pagination -->
+    <div class="d-flex justify-content-center">
+      <?php echo $GLOBALS['pagination'] ?>
+    </div>
   </div>
 
   <!-- edit Modal -->
@@ -75,17 +91,85 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="editModalLongTitle">編輯</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <h5 class="modal-title" id="editModalLongTitle" index="">編輯</h5>
+          <button type="button" class="close editModalClose" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          ...
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">公司名稱</span>
+            </div>
+            <input type="text" class="form-control editInput" id="custNameInput">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">公司簡介</span>
+            </div>
+            <textarea class="form-control editInput" id="profileInput"></textarea>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">產品服務</span>
+            </div>
+            <textarea class="form-control editInput" id="productInput"></textarea>
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">產業類別</span>
+            </div>
+            <input type="text" class="form-control editInput" id="indcatTreeDescInput">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">員工人數</span>
+            </div>
+            <input type="text" class="form-control editInput" id="custEmployeeDescInput">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">資本額</span>
+            </div>
+            <input type="text" class="form-control editInput" id="custCapitalDescInput">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">縣市</span>
+            </div>
+            <input type="text" class="form-control editInput" id="areaDescInput">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text">公司網站</span>
+            </div>
+            <input type="text" class="form-control editInput" id="custWebSiteInput">
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-secondary editModalClose">Close</button>
+          <button type="button" class="btn btn-primary" id="save">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Alert Modal -->
+  <div class="modal fade" id="alertModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="alertModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body bg-warning">
+          關閉視窗修改內容將不會保存
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary alertModalYes">確定</button>
         </div>
       </div>
     </div>
@@ -116,14 +200,7 @@
   <script src="<?php echo JS_DIR ?>jquery-3.3.1.slim.min.js"> </script>
   <script src="<?php echo JS_DIR ?>popper.min.js"> </script>
   <script src="<?php echo JS_DIR ?>bootstrap.min.js"> </script>
-  <script>
-    $(".edit").click(function() {
-      $('#editModalLong').modal('show');
-    });
-    $(".delete").click(function() {
-      $('#deleteModalLong').modal('show');
-    });
-  </script>
+  <script src="<?php echo JS_DIR ?>table.js"> </script>
 </body>
 
 </html>
