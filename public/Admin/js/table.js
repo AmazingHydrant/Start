@@ -1,5 +1,6 @@
 $('.edit').click(function () {
     $('#editModalLong').modal({ backdrop: 'static', keyboard: false });
+    var item = $(this).attr('class').split(" ")[1];
     var id = $(this).parents('tr').attr('id');
     $('#custNameInput').val($.trim($('#' + id).children('td:eq(0)').text()));
     $('#indcatTreeDescInput').val($.trim($('#' + id).children('td:eq(1)').text()));
@@ -12,6 +13,12 @@ $('.edit').click(function () {
     $('#editModalLongTitle').text('編號 ' + id);
     $('#editModalLongTitle').attr('index', id);
     $('#editModalLong').modal('show');
+    $('#editModalLong').on('shown.bs.modal', function (e) {
+        if (item == 'edit') {
+            $('input').blur();
+        }
+        $('#' + item + 'Input').focus();
+    })
 });
 $('.editInput').blur(function () {
     var id = $('#editModalLongTitle').attr('index');
@@ -29,6 +36,12 @@ $('.editModalClose').click(function () {
         $('#editModalLong').modal('hide');
     }
 });
+$('#alertModalLong').on('show.bs.modal', function (e) {
+    $('#editModalLong').css('opacity', '0.5');
+})
+$('#alertModalLong').on('hide.bs.modal', function (e) {
+    $('#editModalLong').css('opacity', '1');
+})
 $('.alertModalYes').click(function () {
     $('#alertModalLong').modal('show');
     $('#editModalLong').modal('hide');

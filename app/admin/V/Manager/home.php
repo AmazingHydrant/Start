@@ -34,10 +34,11 @@
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($var as $val) : ?>
+        <?php foreach ($GLOBALS['custInfo'] as $val) : ?>
           <tr class="text-nowrap" id="<?php echo $val['id']; ?>">
             <th scope="row edit">
-              <div class="edit id">
+              <!-- edit class must on sencend -->
+              <div class="id edit">
                 <?php echo $val['id']; ?>
               </div>
             </th>
@@ -65,6 +66,7 @@
             </td>
             <td>
               <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <!-- edit class must on sencend -->
                 <button type="button" class="btn edit btn-secondary">編輯</button>
                 <button type="button" class="btn delete btn-secondary">刪除</button>
                 <button type="button" class="btn btn-secondary">送出</button>
@@ -83,6 +85,9 @@
     <!-- Pagination -->
     <div class="d-flex justify-content-center">
       <?php echo $GLOBALS['pagination'] ?>
+    </div>
+    <div class="d-flex justify-content-center">
+      <?php echo "第{$GLOBALS['page']}頁 共{$GLOBALS['totalPage']}頁" ?>
     </div>
   </div>
 
@@ -156,10 +161,10 @@
 
   <!-- Alert Modal -->
   <div class="modal fade" id="alertModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="alertModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="alertModalLabel">提醒</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

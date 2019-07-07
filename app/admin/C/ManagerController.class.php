@@ -7,12 +7,20 @@ class ManagerController extends SessionController
     public function index()
     {
         $custM = new CustModel;
-        $page = isset($_GET['page']) && $_GET['page'] != '' ? $_GET['page'] : 1;
-        self::$var = $custM->getCustInfo($page);
-        $paginationM = new PaginationModel;
         $total = $custM->totalNun();
+        $totalPage = ceil($total / 10);
+        $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
+        if ($page < 1) {
+            $page = 1;
+        } elseif ($page > $totalPage) {
+            $page = $totalPage;
+        }
+        $GLOBALS['custInfo'] = $custM->getCustInfo($page);
+        $paginationM = new PaginationModel;
         $url = 'http://www.start.com/index.php?p=admin&c=Manager&a=index&page=';
         $GLOBALS['pagination'] = $paginationM->getPagination($url, $total, $page);
+        $GLOBALS['totalPage'] = $totalPage;
+        $GLOBALS['page'] = $page;
         $this->display('home.php');
     }
     /**

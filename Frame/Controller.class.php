@@ -15,7 +15,6 @@ class Controller
      */
     protected function display($view)
     {
-        $var = self::$var;
         require V_DIR . CONTROLLER . "/{$view}";
     }
     /**
