@@ -1,28 +1,6 @@
 <?php
-class AdminModel
+class AdminModel extends DBCommonModel
 {
-    /**
-     * @var PDODB $pdodb
-     */
-    protected $pdodb;
-    /**
-     * init PDODB
-     */
-    public function __construct()
-    {
-        $this->initPDODB();
-    }
-    /**
-     * init params new PDODB
-     */
-    private function initPDODB()
-    {
-        $option = [
-            'pass' => '!@#123qwe',
-            'dbname' => 'start'
-        ];
-        $this->pdodb = PDODB::getInstance($option);
-    }
     /**
      * check username & password
      * @param string $user
@@ -30,7 +8,7 @@ class AdminModel
      */
     public function check($user, $pass)
     {
-        $res = $this->pdodb->fetchRow("select user from users where user = ? and pass = ?", [$user, md5($pass)]);
+        $res = $this->pdo->fetchRow("select user from users where user = ? and pass = ?", [$user, md5($pass)]);
         return $res;
     }
 }

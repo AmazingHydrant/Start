@@ -29,7 +29,7 @@ function logout() {
     }
     xhr.send(null);
 }
-document.querySelector('#submin').onclick = function () { ajax() };
+document.querySelector('#submit').onclick = function () { ajax() };
 document.querySelector('#pass').onfocus = function () {
     document.querySelector('.info').className = 'info d-none';
 };

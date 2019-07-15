@@ -1,4 +1,5 @@
 <?php
+
 /**
  * 單例對象工廠
  */
@@ -14,7 +15,6 @@ class Factory
         static $objList = [];
         $file = "./{$className}.class.php";
         if (!isset($objList[$className])) {
-            require_once($file);
             $objList[$className] = new $className;
         }
         return $objList[$className];

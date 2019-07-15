@@ -6,8 +6,7 @@ class ManagerController extends SessionController
      */
     public function index()
     {
-        $custM = new CustModel;
-        $total = $custM->totalNun();
+        $total = M('Cust')->totalNun();
         $totalPage = ceil($total / 10);
         $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
         if ($page < 1) {
@@ -15,12 +14,14 @@ class ManagerController extends SessionController
         } elseif ($page > $totalPage) {
             $page = $totalPage;
         }
-        $GLOBALS['custInfo'] = $custM->getCustInfo($page);
+        $custInfo = M('Cust')->getCustInfo($page);
         $paginationM = new PaginationModel;
         $url = 'http://www.start.com/index.php?p=admin&c=Manager&a=index&page=';
-        $GLOBALS['pagination'] = $paginationM->getPagination($url, $total, $page);
-        $GLOBALS['totalPage'] = $totalPage;
-        $GLOBALS['page'] = $page;
+        $pagination = $paginationM->getPagination($url, $total, $page);
+        $this->assign('custInfo', $custInfo);
+        $this->assign('pagination', $pagination);
+        $this->assign('totalPage', $totalPage);
+        $this->assign('page', $page);
         $this->display('home.php');
     }
     /**
@@ -37,15 +38,13 @@ class ManagerController extends SessionController
     public function fetchInfo()
     {
         if (isset($_POST['id'])) {
-            $custM = new CustModel;
-            $info = $custM->fetch($_GET['id']);
+            $info = M('Cust')->fetch($_GET['id']);
             return $info;
         }
         return false;
     }
     public function test()
     {
-        $custM = new CustModel;
-        $custM->totalNun();
+        M('Cust')->totalNun();
     }
 }

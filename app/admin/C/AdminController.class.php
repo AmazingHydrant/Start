@@ -24,10 +24,9 @@ class AdminController extends Controller
      */
     public function check()
     {
-        $adminM = new AdminModel;
         $info = [];
         header('Content-Type: application/json; charset=utf-8');
-        if (isset($_POST['user']) && isset($_POST['pass']) && $adminM->check($_POST['user'], $_POST['pass'])) {
+        if (isset($_POST['user']) && isset($_POST['pass']) && M('Admin')->check($_POST['user'], $_POST['pass'])) {
             $info['status'] = true;
             $_SESSION["user"] = $_POST['user'];
         } else {

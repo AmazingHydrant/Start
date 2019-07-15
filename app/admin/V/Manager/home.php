@@ -34,7 +34,7 @@
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($GLOBALS['custInfo'] as $val) : ?>
+        <?php foreach ($custInfo as $val) : ?>
           <tr class="text-nowrap" id="<?php echo $val['id']; ?>">
             <th scope="row edit">
               <!-- edit class must on sencend -->
@@ -84,10 +84,10 @@
     </table>
     <!-- Pagination -->
     <div class="d-flex justify-content-center">
-      <?php echo $GLOBALS['pagination'] ?>
+      <?php echo $pagination ?>
     </div>
     <div class="d-flex justify-content-center">
-      <?php echo "第{$GLOBALS['page']}頁 共{$GLOBALS['totalPage']}頁" ?>
+      <?php echo "第{$page}頁 共{$totalPage}頁" ?>
     </div>
   </div>
 

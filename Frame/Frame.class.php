@@ -7,6 +7,7 @@ class Frame
         self::initConst();
         self::initDispatchParam();
         self::initPlatformConst();
+        self::initBaseFunction();
         self::initAutoLoad();
         self::initDispatch();
     }
@@ -43,12 +44,17 @@ class Frame
         define('JS_DIR', PUBLIC_DIR  . PLATFORM . '/js/');
         define('ICON_DIR', PUBLIC_DIR  . PLATFORM . '/icon/');
     }
+    private static function initBaseFunction()
+    {
+        require_once Frame_DIR . 'Func.php';
+    }
     private static function initAutoLoad()
     {
         function autoLoad($calssName)
         {
             $FrameClassList = [
                 'Frame' => Frame_DIR . 'Frame.class.php',
+                'Factory' => Frame_DIR . 'Factory.class.php',
                 'Tool' => Frame_DIR . 'Tool.class.php',
                 'Curl' => Frame_DIR . 'Curl.class.php',
                 'PDODB' => Frame_DIR . 'PDODB.class.php',

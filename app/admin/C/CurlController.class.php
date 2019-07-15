@@ -13,8 +13,7 @@ class CurlController
         while ($page <= $endPage) {
             sleep(3);
             $custLists = $crawlerM->crawling104($keyword, $page, $area, $indcat);
-            $custM = new CustModel;
-            $custM->putList($custLists);
+            custM()->putList($custLists);
             $page += 1;
         }
     }

@@ -12,23 +12,23 @@
   <div class="container my-5 py-5">
     <div class="row justify-content-center align-items-center">
       <div class="col-lg-4 col-md-5 col-sm-6 text-center border border-black-50" style="border-width:3px !important">
-        <form>
+        <form action="javascript:;">
           <img class="my-3" src="<?php echo ICON_DIR ?>/icon.png" alt="" width="72" height="72">
           <div class="form-group">
             <label for="user">User address</label>
-            <input type="text" class="form-control" id="user" aria-describedby="userHelp" placeholder="User">
+            <input type="text" class="form-control" id="user" aria-describedby="userHelp" placeholder="User" required>
             <small id="UserHelp" class="form-text text-muted">We'll never share your info with anyone else.</small>
           </div>
           <div class="form-group">
             <label for="pass">Password</label>
-            <input type="password" class="form-control" id="pass" placeholder="Password">
+            <input type="password" class="form-control" id="pass" placeholder="Password" required>
           </div>
           <div class="info text-danger d-none">請檢查帳號密碼輸入無誤</div>
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
           </div>
-          <button type="button" class="btn btn-primary" id="submin">Submit</button>
+          <button type="submit" class="btn btn-primary" id="submit">Submit</button>
           <p class="mt-5 mb-3 text-muted">&copy; 2019-2019</p>
         </form>
       </div>
