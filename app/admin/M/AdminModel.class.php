@@ -1,5 +1,5 @@
 <?php
-class AdminModel extends DBCommonModel
+class AdminModel extends PDODB
 {
     /**
      * check username & password
@@ -8,7 +8,10 @@ class AdminModel extends DBCommonModel
      */
     public function check($user, $pass)
     {
-        $res = $this->pdo->fetchRow("select user from users where user = ? and pass = ?", [$user, md5($pass)]);
-        return $res;
+        if ($user != '' and $pass != '') {
+            $res = $this->fetchRow("select user from users where user = ? and pass = ?", [$user, md5($pass)]);
+            return $res;
+        }
+        return false;
     }
 }

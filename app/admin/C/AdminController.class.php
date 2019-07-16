@@ -26,9 +26,9 @@ class AdminController extends Controller
     {
         $info = [];
         header('Content-Type: application/json; charset=utf-8');
-        if (isset($_POST['user']) && isset($_POST['pass']) && M('Admin')->check($_POST['user'], $_POST['pass'])) {
+        if ($userInfo = M('Admin')->check($_POST['user'], $_POST['pass'])) {
             $info['status'] = true;
-            $_SESSION["user"] = $_POST['user'];
+            $_SESSION["user"] = $userInfo['user'];
         } else {
             $info['status'] = false;
         }

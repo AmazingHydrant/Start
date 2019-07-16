@@ -5,9 +5,9 @@ class Frame
     {
         self::initTimeZone();
         self::initConst();
+        self::initBaseFunction();
         self::initDispatchParam();
         self::initPlatformConst();
-        self::initBaseFunction();
         self::initAutoLoad();
         self::initDispatch();
     }
@@ -22,8 +22,14 @@ class Frame
         define('Frame_DIR', ROOT_DIR . 'frame/');
         define('PUBLIC_DIR', '/public/');
     }
+    private static function initBaseFunction()
+    {
+        require_once Frame_DIR . 'Func.php';
+        C(include Frame_DIR . 'Config.php');
+    }
     private static function initDispatchParam()
     {
+        define('IS_POST', $_SERVER['REQUEST_METHOD'] == 'POST' ? true : false);
         $default_platform = 'admin';
         $platform = isset($_GET['p']) ? $_GET['p'] : $default_platform;
         define('PLATFORM', $platform);
@@ -43,10 +49,6 @@ class Frame
         define('CSS_DIR', PUBLIC_DIR . PLATFORM . '/css/');
         define('JS_DIR', PUBLIC_DIR  . PLATFORM . '/js/');
         define('ICON_DIR', PUBLIC_DIR  . PLATFORM . '/icon/');
-    }
-    private static function initBaseFunction()
-    {
-        require_once Frame_DIR . 'Func.php';
     }
     private static function initAutoLoad()
     {

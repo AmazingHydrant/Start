@@ -19,29 +19,33 @@ class PDODB
     /**
      * init PDO
      */
-    private function __construct($option)
+    public function __construct()
     {
-        $this->initParam($option);
+        if (self::$instance != null) {
+            return self::$instance;
+        }
+        $this->initParam();
         $this->initDSN();
         $this->initPDO();
         $this->Attribute();
     }
-    /**
-     * using Singleton
-     */
-    public static function getInstance($option)
-    {
-        if (!(self::$instance instanceof self)) {
-            self::$instance = new self($option);
-        }
-        return self::$instance;
-    }
+    // /**
+    //  * using Singleton
+    //  */
+    // public static function getInstance($option)
+    // {
+    //     if (!(self::$instance instanceof self)) {
+    //         self::$instance = new self($option);
+    //     }
+    //     return self::$instance;
+    // }
     /**
      * init Patams
      * @param array $option [pass, dbname]
      */
-    private function initParam($option)
+    private function initParam()
     {
+        $option = C('DB');
         $this->host = isset($option['host']) ?  $option['host'] : '127.0.0.1';
         $this->port = isset($option['port']) ?  $option['port'] : '3306';
         $this->user = isset($option['user']) ?  $option['user'] : 'root';

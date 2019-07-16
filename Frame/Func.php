@@ -30,3 +30,12 @@ function M($modelName)
     $modelName .= 'Model';
     return F($modelName);
 }
+function C($var)
+{
+    static $config = array();
+    if (is_array($var)) {
+        $config = $var;
+    } elseif (is_string($var)) {
+        return $config[$var];
+    }
+}

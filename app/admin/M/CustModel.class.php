@@ -1,9 +1,9 @@
 <?php
-class CustModel extends DBCommonModel
+class CustModel extends PDODB
 {
     public function getCustInfo($page = 1)
     {
-        $info = $this->pdo->fetchAll("select * from custs limit " . (string) ($page - 1) * 10 . ", 10", []);
+        $info = $this->fetchAll("select * from custs limit " . (string) ($page - 1) * 10 . ", 10", []);
         return $info;
     }
     /**
@@ -12,7 +12,7 @@ class CustModel extends DBCommonModel
      */
     public function putData($cust)
     {
-        $this->pdo->query(
+        $this->query(
             "insert into custs(custName,
             custEmployeeDesc,
             custCapitalDesc,
@@ -44,7 +44,7 @@ class CustModel extends DBCommonModel
             $count = 0;
             $try = 0;
             foreach ($custLists["data"]["list"] as $cust) {
-                $indb =  $this->pdo->fetchRow("select custName from custs where custName = ?;", [$cust['custName']]);
+                $indb =  $this->fetchRow("select custName from custs where custName = ?;", [$cust['custName']]);
                 if ($indb['custName']) {
                     if ($try >= $retry) {
                         echo "已達連續重複最高次數{$retry}次<br/>";
@@ -71,7 +71,7 @@ class CustModel extends DBCommonModel
      */
     public function totalNun()
     {
-        $totalNun = $this->pdo->fetchCol("select count(id) from custs");
+        $totalNun = $this->fetchCol("select count(id) from custs");
         return $totalNun;
     }
     /**
@@ -79,7 +79,7 @@ class CustModel extends DBCommonModel
      */
     public function fetchInfo($id)
     {
-        $info = $this->pdo->fetchRow("select * from custs where id = ?", "$id");
+        $info = $this->fetchRow("select * from custs where id = ?", "$id");
         return $info;
     }
 }
